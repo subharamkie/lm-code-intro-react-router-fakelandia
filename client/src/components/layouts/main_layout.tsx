@@ -1,11 +1,11 @@
 import {Outlet} from "react-router-dom";
-import Header from "../header/Header";
+import Header from "../header/header";
 
-const MainLayout:React.FC = () =>{
+const MainLayout= () =>{
     return (
         <>
         <Header/>
-        <main>
+        <main className='p-6'>
             <Outlet/>
         </main>
         </>

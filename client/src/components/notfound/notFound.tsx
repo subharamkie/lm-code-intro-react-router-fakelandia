@@ -1,4 +1,4 @@
-const NotFound:React.FC = () =>{
+const NotFound = () =>{
     return (<></>)
 }
 export default NotFound;

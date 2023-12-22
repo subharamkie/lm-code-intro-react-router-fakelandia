@@ -1,4 +1,4 @@
-const Misdemeanour:React.FC = () =>{
+const Misdemeanour = () =>{
     return (
         <></>
     )
