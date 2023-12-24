@@ -1,19 +1,15 @@
-import * as MisdemeanourType from '../../types/misdemeanours.types';
+import { useContext } from 'react';
 import Punishment from '../punishment/punishment';
+import { ItemContext } from './misdemeanours_list';
 
-interface MisdemeanourProps {
-  data: MisdemeanourType.Misdemeanour;
-}
-
-export const MisdemeanourComp: React.FC<MisdemeanourProps> = ({
-  data: { citizenId,misdemeanour,date },
-}) => {
+export const MisdemeanourComp: React.FC = () => {
+    const misdemeanourItem = useContext(ItemContext);
   return (
     <>
-      <li key={citizenId} className="misD-item">
-        <p>{citizenId}</p>
-        <p >{date}</p>
-        <p>{misdemeanour}</p>
+      <li key={misdemeanourItem.citizenId} className="misD-item">
+        <p>{misdemeanourItem.citizenId}</p>
+        <p >{misdemeanourItem.date}</p>
+        <p>{misdemeanourItem.misdemeanour}</p>
         <Punishment/>
         
       </li>
