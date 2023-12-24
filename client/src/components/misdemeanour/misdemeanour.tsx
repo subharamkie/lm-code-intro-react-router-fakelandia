@@ -5,7 +5,7 @@ interface MisdemeanourProps {
   data: MisdemeanourType.Misdemeanour;
 }
 
-export const Misdemeanour: React.FC<MisdemeanourProps> = ({
+export const MisdemeanourComp: React.FC<MisdemeanourProps> = ({
   data: { citizenId,misdemeanour,date },
 }) => {
   return (
