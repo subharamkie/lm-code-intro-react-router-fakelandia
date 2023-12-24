@@ -35,7 +35,11 @@ body {
     padding: 2.5% 0;
     width: 25%;
 }
-
+.errorContainer{
+  background-color: deeppink;
+  text-decoration: underline;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 
 
