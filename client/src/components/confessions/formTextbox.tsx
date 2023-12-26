@@ -6,6 +6,11 @@ export const ConfessionTextBox :React.FC<TextBoxProps> = ({value,onChangeFn}) =>
     const handleChange = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
         const reason = e.target.value;
         //validate
+        if(reason === ''){
+            e.currentTarget.style.borderColor = '#FF0000'; 
+        }else{
+            e.currentTarget.style.borderColor = '#00FF00'; 
+        }
         onChangeFn(reason);
     }
     return (

@@ -5,9 +5,9 @@ import { ConfessButton } from "./formSubmit";
 import { ConfessionTextBox } from "./formTextbox";
 
 const Confessions:React.FC = () =>{
-    const [subjectValue,setSubjectValue] = useState('');
+    const [subjectValue,setSubjectValue] = useState('Enter characters between 3-50 in length');
     const [selectValue,setSelectValue] = useState('default');
-    const [confessionText,setConfessionText] = useState('');
+    const [confessionText,setConfessionText] = useState('Enter text about your confession.Cannot be empty.');
     const [isButtonDisabled,setIsButtonDisabled] = useState(true);
     //enable button after values are set,following validation
     

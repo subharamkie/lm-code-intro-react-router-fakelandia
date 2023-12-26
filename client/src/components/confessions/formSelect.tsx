@@ -8,6 +8,11 @@ export const ConfessionSelect:React.FC<SelectProps> = ({value,onChangeFn}) => {
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) =>{
         const selectedOption = e.target.value;
         //validate
+        if(selectedOption === 'default' || MISDEMEANOURS.includes(selectedOption as MisdemeanourKind)){
+            e.currentTarget.style.borderColor = '#00FF00'; 
+        }else{
+            e.currentTarget.style.borderColor = '#FF0000'; 
+        }
         onChangeFn(selectedOption);
     }
     return (
