@@ -1,12 +1,14 @@
 interface SubmitProps{
     enabled:boolean;
+    onSubmitFn:()=>void;
 }
-export const ConfessButton:React.FC<SubmitProps> =({enabled}) => {
-    const onSubmitFn = () =>{
-        console.log('Form submitted');
+export const ConfessButton:React.FC<SubmitProps> =({enabled,onSubmitFn}) => {
+    const onSubmitCall = (e:React.FormEvent<HTMLButtonElement>) =>{
+        e.preventDefault();
+        onSubmitFn();
     }
     return (
-        <button id="submit" onClick={()=>onSubmitFn()} disabled={enabled}>
+        <button id="submit" onClick={onSubmitCall} disabled={enabled}>
             Confess
         </button>
     )
