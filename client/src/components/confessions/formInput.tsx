@@ -16,8 +16,9 @@ export const ConfessionInput:React.FC<InputProps> = ({value,onChangeFn}) =>{
         }
         else{
             e.currentTarget.style.borderColor = '#00FF00';
+            onChangeFn(inputValue);
         }
-        onChangeFn(inputValue);
+        
     }
 
     return (
@@ -25,7 +26,7 @@ export const ConfessionInput:React.FC<InputProps> = ({value,onChangeFn}) =>{
             <div className="flex justify-between">
                 <label htmlFor="subject" className="font-semibold capitalize">Subject:</label>
             </div>
-            <input id="subject" type="text" value={value} onChange={handleChange} />
+            <input id="subject" placeholder="Enter characters between 3-50 in length" type="text" value={value} required={true} onChange={handleChange} onInvalid={(e)=>{e.currentTarget.setCustomValidity("Please enter subject between 3-50 chars")}}/>
             
         </div>
     )

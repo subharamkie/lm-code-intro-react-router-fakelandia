@@ -9,11 +9,12 @@ export const ConfessionTextBox :React.FC<TextBoxProps> = ({value,onChangeFn}) =>
         if(reason === ''){
             e.currentTarget.style.borderColor = '#FF0000'; 
         }else{
-            e.currentTarget.style.borderColor = '#00FF00'; 
+            e.currentTarget.style.borderColor = '#00FF00';
+            onChangeFn(reason); 
         }
-        onChangeFn(reason);
+        
     }
     return (
-        <textarea id="confessionText" value={value} onChange={handleChange}/>
+        <textarea id="confessionText" placeholder='Enter text about your confession.Cannot be empty.' value={value} onChange={handleChange} required={true} />
     )
 }
