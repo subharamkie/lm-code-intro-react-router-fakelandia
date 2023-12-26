@@ -1,10 +1,12 @@
-import { useState } from "react"
-
-export const ConfessionTextBox :React.FC = () =>{
-    const [value,setValue] = useState('');
+interface TextBoxProps{
+    value:string;
+    onChangeFn:(value:string) =>void;
+}
+export const ConfessionTextBox :React.FC<TextBoxProps> = ({value,onChangeFn}) =>{
     const handleChange = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
         const reason = e.target.value;
-        setValue(reason);
+        //validate
+        onChangeFn(reason);
     }
     return (
         <textarea id="confessionText" value={value} onChange={handleChange}/>

@@ -1,10 +1,12 @@
-import { useState } from "react"
-
-export const ConfessionInput:React.FC = () =>{
-    const[value,setValue] = useState('');
+interface InputProps{
+    value:string;
+    onChangeFn:(value: string) => void;
+}
+export const ConfessionInput:React.FC<InputProps> = ({value,onChangeFn}) =>{
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
-        setValue(inputValue);
+        //validate
+        onChangeFn(inputValue);
     }
 
     return (

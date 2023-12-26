@@ -1,11 +1,14 @@
-import { useState } from "react"
 import { MISDEMEANOURS,MisdemeanourKind } from "../../types/misdemeanours.types";
 
-export const ConfessionSelect:React.FC = () => {
-    const[value,setValue] = useState('default');
+interface SelectProps{
+    value:string;
+    onChangeFn:(value: string) => void;
+}
+export const ConfessionSelect:React.FC<SelectProps> = ({value,onChangeFn}) => {
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) =>{
         const selectedOption = e.target.value;
-        setValue(selectedOption);
+        //validate
+        onChangeFn(selectedOption);
     }
     return (
         <label htmlFor="typeOfConfession">Reason for Contact:
