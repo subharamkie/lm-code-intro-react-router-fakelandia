@@ -10,7 +10,7 @@ const Punishment:React.FC = () =>{
 
     return (
         <>
-            <img src={urlForImage} />;
+            <img src={urlForImage} alt='Random punishment image'/>;
         </>
     )
 }
