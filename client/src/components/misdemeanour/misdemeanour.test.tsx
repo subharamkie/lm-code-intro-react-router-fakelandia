@@ -18,6 +18,14 @@ afterAll(()=>mockServer.close());
 afterEach(()=>mockServer.resetHandlers());
 const mockServer = setupServer();
 const responseData = {"misdemeanours":[{"citizenId":4875,"misdemeanour":"united","date":"12/27/2023"},{"citizenId":18211,"misdemeanour":"rudeness","date":"12/27/2023"},{"citizenId":5079,"misdemeanour":"rudeness","date":"12/27/2023"},{"citizenId":29,"misdemeanour":"rudeness","date":"12/27/2023"},{"citizenId":1451,"misdemeanour":"rudeness","date":"12/27/2023"},{"citizenId":23088,"misdemeanour":"vegetables","date":"12/27/2023"},{"citizenId":9015,"misdemeanour":"united","date":"12/27/2023"},{"citizenId":4818,"misdemeanour":"vegetables","date":"12/27/2023"},{"citizenId":2114,"misdemeanour":"rudeness","date":"12/27/2023"},{"citizenId":2248,"misdemeanour":"lift","date":"12/27/2023"}]};    
+
+it('Misdemeanour component with no response ',async()=>{
+    mockServer.use(http.get('http://localhost:8080/api/misdemeanours/10',()=>
+            new HttpResponse(JSON.stringify({"misdemeanours":[]}))
+        ));
+    render(<MisdemeanourContainer/>);
+    expect(await screen.findByText(/Loading/)).toBeInTheDocument();
+});
 it('Misdemeanour component with mock api',async()=>{
     mockServer.use(http.get('http://localhost:8080/api/misdemeanours/10',()=>
             new HttpResponse(JSON.stringify(responseData))
