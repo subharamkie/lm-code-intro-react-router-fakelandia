@@ -5,7 +5,6 @@ interface JusticeContextProps {
   misdemeanourArray: MisdemeanourResponse;
   addMisdemeanour: (newMisD:Misdemeanour) => void;
   updateMisdemeanour: (misDList:MisdemeanourResponse) => void;
-  
 }
 
 const defaultContextValues: JusticeContextProps = {

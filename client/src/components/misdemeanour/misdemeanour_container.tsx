@@ -13,7 +13,7 @@ export const MisdemeanourContainer: React.FC = () => {
 
     const contextObj = useContext(JusticeContext);
     console.log('cobj:'+JSON.stringify(contextObj.misdemeanourArray));
-  useEffect(() => {
+    useEffect(() => {
     async function getMisdemeanours() {
       if(contextObj.misdemeanourArray.length === 0){
         const data = await fetch(fetchUrl);
