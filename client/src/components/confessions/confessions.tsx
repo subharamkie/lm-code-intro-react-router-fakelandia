@@ -1,8 +1,11 @@
-import { useState,useEffect,useRef } from "react";
+import { useState,useEffect,useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { ConfessionInput } from "./formInput";
 import { ConfessionSelect } from "./formSelect";
 import { ConfessButton } from "./formSubmit";
 import { ConfessionTextBox } from "./formTextbox";
+import { JusticeContext } from "../justiceContext";
+import { Misdemeanour, MisdemeanourKind } from "../../types/misdemeanours.types";
 
 
 const Confessions:React.FC = () =>{
@@ -19,6 +22,9 @@ const Confessions:React.FC = () =>{
     const allInputsValid =() =>{
         allValuesCorrect.current = isSubjectValid && isSelectValid && isConfessionValid;
     }
+    const contextObj = useContext(JusticeContext);
+    const navigate = useNavigate();
+           
     //enable button after values are set,following validation
     useEffect(()=>{
         //validate and set 
@@ -32,7 +38,7 @@ const Confessions:React.FC = () =>{
     },[selectValue]);
     useEffect(()=>{
         //validate and set 
-        setIsConfessionValid(confessionText.length >= 3 && confessionText.length <= 50);
+        setIsConfessionValid(confessionText.trim() !== '');
         allInputsValid();
     },[confessionText]);
 
@@ -50,8 +56,19 @@ const Confessions:React.FC = () =>{
             headers:{'Content-Type':'application/json'}
         });
         const result = await response.json();
-        if(!result.success){
-           alert('Error saving message');
+        if(result.success && !result.justTalked){
+           //add to misdemeanours list in context
+           //create misD object
+           const addedMisD:Misdemeanour = {
+            citizenId: Math.floor(Math.random()*10+10),
+            misdemeanour:selectValue as MisdemeanourKind,
+            date:new Date().toLocaleString() + '',
+           }
+            contextObj.addMisdemeanour(addedMisD);
+            navigate("/misdemeanours");    
+
+        }else{
+            //if error,error message
         }
     }
     
