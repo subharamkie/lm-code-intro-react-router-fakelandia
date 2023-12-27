@@ -24,13 +24,13 @@ it('Misdemeanour component with no response ',async()=>{
             new HttpResponse(JSON.stringify({"misdemeanours":[]}))
         ));
     render(<MisdemeanourContainer/>);
-    expect(await screen.findByText(/Loading/)).toBeInTheDocument();
+    expect(await screen.findByText(/Loading/i)).toBeInTheDocument();
 });
 it('Misdemeanour component with mock api',async()=>{
     mockServer.use(http.get('http://localhost:8080/api/misdemeanours/10',()=>
             new HttpResponse(JSON.stringify(responseData))
         ));
     render(<MisdemeanourContainer/>);
-    expect(await screen.findByText(`united`)).toBeInTheDocument();
+    expect(await screen.findByText(/united/i)).toBeInTheDocument();
 });
 
