@@ -1,18 +1,19 @@
 import { useState,useEffect,useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { ConfessionInput } from "./formInput";
-import { ConfessionSelect } from "./formSelect";
-import { ConfessButton } from "./formSubmit";
-import { ConfessionTextBox } from "./formTextbox";
+import { ConfessionInput } from "./confessionInput";
+import { ConfessionSelect } from "./confessionSelect";
+import { ConfessButton } from "./confessButton";
+import { ConfessionTextBox } from "./confessionTextbox";
 import { JusticeContext } from "../justiceContext";
 import { Misdemeanour, MisdemeanourKind } from "../../types/misdemeanours.types";
 import MessageContainer from "../message/message";
 
 
 const Confessions:React.FC = () =>{
-    const [subjectValue,setSubjectValue] = useState('');
+    const emptyString:string = '';
+    const [subjectValue,setSubjectValue] = useState(emptyString);
     const [selectValue,setSelectValue] = useState('');
-    const [confessionText,setConfessionText] = useState('');
+    const [confessionText,setConfessionText] = useState(emptyString);
     const allValuesCorrect= useRef(false);
     const postUrl = 'http://localhost:8080/api/confess';
     const [isSubjectValid,setIsSubjectValid] = useState(false);
@@ -32,7 +33,10 @@ const Confessions:React.FC = () =>{
     useEffect(()=>{
         //validate and set 
         setIsSubjectValid(!subjectValue.match(/[^a-zA-Z0-9 ]+/) && subjectValue.length >= 3 && subjectValue.length <= 50);
+        console.log("is:"+isSubjectValid);
         allInputsValid();
+        console.log("curr:"+allValuesCorrect.current);
+        
     },[subjectValue]);
     useEffect(()=>{
         //validate and set 
@@ -41,7 +45,7 @@ const Confessions:React.FC = () =>{
     },[selectValue]);
     useEffect(()=>{
         //validate and set 
-        setIsConfessionValid(confessionText.trim() !== '');
+        setIsConfessionValid(confessionText.trim() !== "");
         allInputsValid();
     },[confessionText]);
 
@@ -85,9 +89,9 @@ const Confessions:React.FC = () =>{
     return (
         <div className="formContainer">
             <form>
-                <ConfessionInput value={subjectValue} onChangeFn={setSubjectValue}/>
-                <ConfessionSelect value={selectValue} onChangeFn = {setSelectValue}/>
-                <ConfessionTextBox value={confessionText} onChangeFn ={setConfessionText}/>
+                <ConfessionInput value={subjectValue} isValid={isSubjectValid} onChangeFn={setSubjectValue}/>
+                <ConfessionSelect value={selectValue} isValid={isSelectValid} onChangeFn = {setSelectValue}/>
+                <ConfessionTextBox value={confessionText} isValid={isConfessionValid} onChangeFn ={setConfessionText}/>
                <ConfessButton enabled={!allValuesCorrect.current} onSubmitFn={handleSubmit}/>
             </form>
             {isMessage && <MessageContainer message={message}/>}
