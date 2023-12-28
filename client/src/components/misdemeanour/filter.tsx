@@ -12,6 +12,7 @@ export const MisdemeanourFilter:React.FC<MisdemeanourFilterProps> = ({filterMisd
         filterMisdemeanours(chosen);
     }
     return(
+        <div className="filter">
         <select value={value} onChange={(e) => handleChange(e.target.value)}>
             <option value='filter'>Filter</option>
         {MISDEMEANOURS.map((item:MisdemeanourKind) => (
@@ -19,6 +20,7 @@ export const MisdemeanourFilter:React.FC<MisdemeanourFilterProps> = ({filterMisd
 
         ))}
     </select>
+    </div>
 
     )
 }

@@ -5,14 +5,11 @@ import { ItemContext } from './misdemeanours_list';
 export const MisdemeanourComp: React.FC = () => {
     const misdemeanourItem = useContext(ItemContext);
   return (
-    <>
-      <li key={misdemeanourItem.citizenId} className="misD-item">
-        <p>{misdemeanourItem.citizenId}</p>
-        <p >{misdemeanourItem.date}</p>
-        <p>{misdemeanourItem.misdemeanour}</p>
-        <Punishment/>
-        
-      </li>
-    </>
+      <tr>
+        <td className='table__cell'>{misdemeanourItem.citizenId}</td>
+        <td className='table__cell'>{misdemeanourItem.date}</td>
+        <td className='table__cell'>{misdemeanourItem.misdemeanour}</td>
+        <td className='table__cell'><Punishment/></td>
+      </tr>  
   )
 }

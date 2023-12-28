@@ -15,19 +15,32 @@ export const MisdemeanourList: React.FC<MisdemeanourListProp> = ({misdemeanours}
   const contextMisdemeanours = useContext(MisdemeanourContext);
   const displayMisdemeanours = misdemeanours.length>0?misdemeanours:contextMisdemeanours;
   if (displayMisdemeanours.length <= 0) {
-    return <p>Loading misdemeanours...</p>;
+    return <p className="captionText">Loading misdemeanours...</p>;
   }
   return (
-    
-    <section>Number of misdemeanours: {displayMisdemeanours.length}
-      <p>
-     {displayMisdemeanours.map ((item:Misdemeanour,index) => (
-        <ItemContext.Provider key={index} value = {item}>
-        <MisdemeanourComp/>
-        </ItemContext.Provider>
-      ))
-     }
-      </p>
-    </section>
+    <div className="misDTable">
+    <table className="table__main">
+      <caption className="caption__text">Number of misdemeanours: {displayMisdemeanours.length}</caption>
+      <thead className="table__heading">
+        <tr >
+          <th className="table__heading table__cell">Citizen Id</th>
+          <th className="table__heading table__cell">Date</th>
+          <th className="table__heading table__cell">Misdemenaour</th>
+          <th className="table__heading table__cell">Punishment Idea</th> 
+        </tr>
+      </thead>
+      <tbody>
+          
+         {
+            //returns a new row of data
+            displayMisdemeanours.map ((item:Misdemeanour,index) => (
+            <ItemContext.Provider key={index} value = {item}>
+            <MisdemeanourComp/>
+            </ItemContext.Provider>
+          ))
+        }
+      </tbody>
+      </table>
+    </div>
   )
 }

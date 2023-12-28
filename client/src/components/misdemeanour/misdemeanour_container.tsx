@@ -36,7 +36,7 @@ export const MisdemeanourContainer: React.FC = () => {
 
   return (
     <MisdemeanourContext.Provider value={misdemeanours}>
-      <h1>Misdemeanour list:</h1>
+      <h2 className="caption__text">Misdemeanours list</h2>
       <MisdemeanourFilter filterMisdemeanours={filterResults}/>
       <MisdemeanourList misdemeanours={filteredMisdemeanours} />
     </MisdemeanourContext.Provider>
