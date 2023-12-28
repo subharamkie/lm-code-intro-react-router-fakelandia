@@ -10,7 +10,8 @@ export const ConfessionSelect:React.FC<SelectProps> = ({value,onChangeFn}) => {
         onChangeFn(selectedOption); 
     }
     return (
-        <label htmlFor="typeOfConfession">Reason for Contact:
+        <div className="form__input">
+        <label className="form__label" htmlFor="typeOfConfession">Reason for Contact:
         <select id="typeOfConfession" value={value} onChange={handleChange} defaultChecked={true}>
             <option value={JUST_TALK} >I just want to talk</option>
             {
@@ -19,5 +20,6 @@ export const ConfessionSelect:React.FC<SelectProps> = ({value,onChangeFn}) => {
             }
         </select>
         </label>
+        </div>
     )
 }

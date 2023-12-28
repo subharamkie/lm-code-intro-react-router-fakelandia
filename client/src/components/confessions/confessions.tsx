@@ -73,15 +73,13 @@ const Confessions:React.FC = () =>{
     }
     
     return (
-        <div>
-        <section>
+        <div className="formContainer">
             <form>
                 <ConfessionInput value={subjectValue} onChangeFn={setSubjectValue}/>
                 <ConfessionSelect value={selectValue} onChangeFn = {setSelectValue}/>
                 <ConfessionTextBox value={confessionText} onChangeFn ={setConfessionText}/>
                <ConfessButton enabled={!allValuesCorrect.current} onSubmitFn={handleSubmit}/>
             </form>
-        </section>
         </div>
     )
 }

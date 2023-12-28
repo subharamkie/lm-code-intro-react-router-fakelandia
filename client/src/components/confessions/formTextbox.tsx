@@ -9,6 +9,8 @@ export const ConfessionTextBox :React.FC<TextBoxProps> = ({value,onChangeFn}) =>
         
     }
     return (
-        <textarea id="confessionText" placeholder='Enter text about your confession.Cannot be empty.' value={value} onChange={handleChange} required={true} />
+        <div className="form__textarea">
+            <textarea id="confessionText" placeholder='Enter text about your confession.Cannot be empty.' value={value} onChange={handleChange} required={true} />
+        </div>
     )
 }

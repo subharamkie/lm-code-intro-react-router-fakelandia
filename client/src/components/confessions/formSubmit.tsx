@@ -8,7 +8,7 @@ export const ConfessButton:React.FC<SubmitProps> =({enabled,onSubmitFn}) => {
         onSubmitFn();
     }
     return (
-        <button id="submit" onClick={onSubmitCall} disabled={enabled}>
+        <button className="btn" id="submit" onClick={onSubmitCall} disabled={enabled}>
             Confess
         </button>
     )
