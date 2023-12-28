@@ -6,6 +6,7 @@ import { ConfessButton } from "./formSubmit";
 import { ConfessionTextBox } from "./formTextbox";
 import { JusticeContext } from "../justiceContext";
 import { Misdemeanour, MisdemeanourKind } from "../../types/misdemeanours.types";
+import MessageContainer from "../message/message";
 
 
 const Confessions:React.FC = () =>{
@@ -17,6 +18,8 @@ const Confessions:React.FC = () =>{
     const [isSubjectValid,setIsSubjectValid] = useState(false);
     const [isSelectValid,setIsSelectValid] = useState(false);
     const [isConfessionValid,setIsConfessionValid] = useState(false);
+    const [isMessage,setIsMessage] = useState(false);
+    const [message,setMessage] = useState('');
     
     //update button enable
     const allInputsValid =() =>{
@@ -67,8 +70,15 @@ const Confessions:React.FC = () =>{
             contextObj.addMisdemeanour(addedMisD);
             navigate("/misdemeanours");    
 
+        }else if(result.justTalked){
+            //show Thank you message
+            setIsMessage(true);
+            setMessage('Thank you for talking to us!');
+            <MessageContainer message={message}/>
         }else{
-            //if error,error message
+            setIsMessage(true);
+            setMessage("Sorry there was an error submitting the form.Please try again!");
+            
         }
     }
     
@@ -80,6 +90,7 @@ const Confessions:React.FC = () =>{
                 <ConfessionTextBox value={confessionText} onChangeFn ={setConfessionText}/>
                <ConfessButton enabled={!allValuesCorrect.current} onSubmitFn={handleSubmit}/>
             </form>
+            {isMessage && <MessageContainer message={message}/>}
         </div>
     )
 }
