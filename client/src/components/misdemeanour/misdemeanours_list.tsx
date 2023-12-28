@@ -15,7 +15,7 @@ export const MisdemeanourList: React.FC<MisdemeanourListProp> = ({misdemeanours}
   const contextMisdemeanours = useContext(MisdemeanourContext);
   const displayMisdemeanours = misdemeanours.length>0?misdemeanours:contextMisdemeanours;
   if (displayMisdemeanours.length <= 0) {
-    return <p className="captionText">Loading misdemeanours...</p>;
+    return <p className="caption__text">Loading misdemeanours...</p>;
   }
   return (
     <div className="misDTable">
