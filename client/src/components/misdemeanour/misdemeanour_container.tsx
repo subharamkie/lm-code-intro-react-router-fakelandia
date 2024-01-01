@@ -1,7 +1,7 @@
 import { useEffect, useState,createContext,useContext } from "react"
 import { MisdemeanourResponse } from "../../types/misdemeanours.types";
 import {MisdemeanourList} from './misdemeanours_list';
-import { MisdemeanourFilter } from "./filter";
+import { MisdemeanourFilter } from "./misdemeanourFilter";
 import { JusticeContext } from "../justiceContext";
 
 export const MisdemeanourContext = createContext<MisdemeanourResponse>([]);
