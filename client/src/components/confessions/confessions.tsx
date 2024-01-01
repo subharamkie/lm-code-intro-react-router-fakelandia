@@ -1,4 +1,4 @@
-import { useState,useEffect,useRef, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ConfessionInput } from "./confessionInput";
 import { ConfessionSelect } from "./confessionSelect";
@@ -10,52 +10,41 @@ import MessageContainer from "../message/message";
 
 
 const Confessions:React.FC = () =>{
-    const emptyString:string = '';
-    const [subjectValue,setSubjectValue] = useState(emptyString);
+    const [subjectValue,setSubjectValue] = useState('');
     const [selectValue,setSelectValue] = useState('');
-    const [confessionText,setConfessionText] = useState(emptyString);
-    const allValuesCorrect= useRef(false);
+    const [confessionValue,setConfessionValue] = useState('');
     const postUrl = 'http://localhost:8080/api/confess';
     const [isSubjectValid,setIsSubjectValid] = useState(false);
     const [isSelectValid,setIsSelectValid] = useState(false);
     const [isConfessionValid,setIsConfessionValid] = useState(false);
     const [isMessage,setIsMessage] = useState(false);
     const [message,setMessage] = useState('');
-    
-    //update button enable
-    const allInputsValid =() =>{
-        allValuesCorrect.current = isSubjectValid && isSelectValid && isConfessionValid;
-    }
     const contextObj = useContext(JusticeContext);
     const navigate = useNavigate();
-           
-    //enable button after values are set,following validation
-    useEffect(()=>{
-        //validate and set 
-        setIsSubjectValid(!subjectValue.match(/[^a-zA-Z0-9 ]+/) && subjectValue.length >= 3 && subjectValue.length <= 50);
-        console.log("is:"+isSubjectValid);
-        allInputsValid();
-        console.log("curr:"+allValuesCorrect.current);
+    
+    //handle change
+    const handleSubject = (e:React.ChangeEvent<HTMLInputElement>) =>{
+        setSubjectValue(e.target.value);
+        setIsSubjectValid(!subjectValue.match(/[^a-zA-Z0-9 ]+/) && !subjectValue.match("  ") && subjectValue.length >= 3 && subjectValue.length <= 50);
         
-    },[subjectValue]);
-    useEffect(()=>{
-        //validate and set 
+    }
+    const handleSelect = (e:React.ChangeEvent<HTMLSelectElement>) =>{
+        setSelectValue(e.target.value);
         setIsSelectValid(selectValue !== '');
-        allInputsValid();
-    },[selectValue]);
-    useEffect(()=>{
-        //validate and set 
-        setIsConfessionValid(confessionText.trim() !== "");
-        allInputsValid();
-    },[confessionText]);
-
+        
+    }
+    const handleConfession = (e:React.ChangeEvent<HTMLTextAreaElement>) =>{
+        setConfessionValue(e.target.value);
+        setIsConfessionValid(!confessionValue.match("  ") && confessionValue.length >=5);    
+    }
+    
     //handle form submission
     const handleSubmit = async () =>{
         //post data to server
         const postData = {
             "subject": subjectValue,
             "reason": selectValue,
-            "details": confessionText
+            "details": confessionValue
         };
         const response = await fetch(postUrl,{
             method:'POST',
@@ -89,10 +78,10 @@ const Confessions:React.FC = () =>{
     return (
         <div className="formContainer">
             <form>
-                <ConfessionInput value={subjectValue} isValid={isSubjectValid} onChangeFn={setSubjectValue}/>
-                <ConfessionSelect value={selectValue} isValid={isSelectValid} onChangeFn = {setSelectValue}/>
-                <ConfessionTextBox value={confessionText} isValid={isConfessionValid} onChangeFn ={setConfessionText}/>
-               <ConfessButton enabled={!allValuesCorrect.current} onSubmitFn={handleSubmit}/>
+                <ConfessionInput value={subjectValue} isValid={isSubjectValid} onChangeFn={handleSubject}/>
+                <ConfessionSelect value={selectValue} isValid={isSelectValid} onChangeFn = {handleSelect}/>
+                <ConfessionTextBox value={confessionValue} isValid={isConfessionValid} onChangeFn ={handleConfession}/>
+               <ConfessButton enabled={!(isSubjectValid && isSelectValid && isConfessionValid) } onSubmitFn={handleSubmit}/>
             </form>
             {isMessage && <MessageContainer message={message}/>}
         </div>

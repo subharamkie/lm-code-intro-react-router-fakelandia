@@ -3,17 +3,13 @@ import { MISDEMEANOURS,MisdemeanourKind,JUST_TALK} from "../../types/misdemeanou
 interface SelectProps{
     value:string;
     isValid:boolean;
-    onChangeFn:(value: string) => void;
+    onChangeFn:(e:React.ChangeEvent<HTMLSelectElement>) => void;
 }
 export const ConfessionSelect:React.FC<SelectProps> = ({value,isValid,onChangeFn}) => {
-    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) =>{
-        const selectedOption = e.target.value;
-        onChangeFn(selectedOption); 
-    }
     return (
         <div className="form__input">
         <label className="form__label" htmlFor="typeOfConfession">Reason for Contact:
-        <select id="typeOfConfession" value={value} onChange={handleChange} defaultChecked={true} className={isValid ?'form__input--valid' : 'form__input--invalid'}>
+        <select id="typeOfConfession" value={value} onChange={onChangeFn} defaultChecked={true} className={isValid ?'form__input--valid' : 'form__input--invalid'}>
             <option value={JUST_TALK} >I just want to talk</option>
             {
                 MISDEMEANOURS.map((item:MisdemeanourKind) => (

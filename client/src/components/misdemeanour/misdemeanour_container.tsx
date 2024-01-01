@@ -12,7 +12,6 @@ export const MisdemeanourContainer: React.FC = () => {
     const [filteredMisdemeanours,setFilteredMisdemeanours] = useState<MisdemeanourResponse>([]);
 
     const contextObj = useContext(JusticeContext);
-    console.log('cobj:'+JSON.stringify(contextObj.misdemeanourArray));
     useEffect(() => {
     async function getMisdemeanours() {
       if(contextObj.misdemeanourArray.length === 0){
