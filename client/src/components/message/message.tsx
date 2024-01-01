@@ -3,7 +3,7 @@ interface messageProp{
 }
 const MessageContainer:React.FC<messageProp> = ({message}) => {
     return(
-        <div className="caption__text">
+        <div id="message" className="caption__text">
             <p>{message}</p>
         </div>
     )

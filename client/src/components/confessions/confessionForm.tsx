@@ -9,7 +9,7 @@ import { Misdemeanour, MisdemeanourKind } from "../../types/misdemeanours.types"
 import MessageContainer from "../message/message";
 
 
-const Confessions:React.FC = () =>{
+const ConfessionForm:React.FC = () =>{
     const [subjectValue,setSubjectValue] = useState('');
     const [selectValue,setSelectValue] = useState('');
     const [confessionValue,setConfessionValue] = useState('');
@@ -52,6 +52,7 @@ const Confessions:React.FC = () =>{
             headers:{'Content-Type':'application/json'}
         });
         const result = await response.json();
+        console.log('on mock test');
         if(result.success && !result.justTalked){
            //add to misdemeanours list in context
            //create misD object
@@ -67,6 +68,7 @@ const Confessions:React.FC = () =>{
             //show Thank you message
             setIsMessage(true);
             setMessage('Thank you for talking to us!');
+            console.log('here');
             <MessageContainer message={message}/>
         }else{
             setIsMessage(true);
@@ -87,4 +89,4 @@ const Confessions:React.FC = () =>{
         </div>
     )
 }
-export default Confessions;
+export default ConfessionForm;
