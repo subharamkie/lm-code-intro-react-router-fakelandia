@@ -1,12 +1,17 @@
 import { useMemo } from "react";
-const Punishment:React.FC = () =>{
-    const min = 75;
-    const max = 250;
+import { IMG_ID_HASH } from "../../types/misdemeanours.types";
+
+interface ImageProps{
+    id:number;
+}
+const Punishment:React.FC<ImageProps> = ({id}) =>{
+    const size = 175;
     
+    //1084 is the last img id in the api
     const urlForImage = useMemo(() => {
-        const randomNum = Math.floor(Math.random()*max-min+1)+min;
-       return `https://picsum.photos/${randomNum}/${randomNum}`;
-    },[min,max]);
+        const idHash = id%IMG_ID_HASH;
+       return `https://picsum.photos/id/${idHash}/${size}/${size}`;
+    },[id]);
 
     return (
         <>
