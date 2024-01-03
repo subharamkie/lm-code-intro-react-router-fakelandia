@@ -17,3 +17,5 @@ export type Misdemeanour = {
 
 export type MisdemeanourResponse = Array<Misdemeanour>;
 export const IMG_ID_HASH = 1084;
+export const FETCH_URL = 'http://localhost:8080/api/misdemeanours/10';
+    
