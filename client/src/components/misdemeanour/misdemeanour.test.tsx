@@ -4,7 +4,7 @@ import {setupServer} from 'msw/node';
 import {http, HttpResponse } from 'msw';
 
 import {it,expect,afterAll,afterEach,beforeAll, vi} from 'vitest'; 
-import {fireEvent, render,screen} from '@testing-library/react';
+import {fireEvent, render,screen,waitFor} from '@testing-library/react';
 import {MisdemeanourComp} from './misdemeanour';
 import { MisdemeanourContainer } from './misdemeanour_container';
 import { MisdemeanourFilter } from './misdemeanourFilter';
@@ -84,4 +84,13 @@ it('filter called to show Loading if misdemeanours is empty',async()=>{
     expect(await screen.findByText(/Loading/i)).toBeInTheDocument();
 });
 
+it('show error if fetch returns error',async()=>{
+    mockServer.use(http.get('http://localhost:8080/api/misdemeanours/10',()=>
+            HttpResponse.error()
+    ));
+    render(<MisdemeanourContainer/>);
+    await waitFor(() => {
+        expect(screen.getByText(/Failed to fetch/i)).toBeInTheDocument();
+    });
+});
 
