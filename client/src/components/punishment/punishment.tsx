@@ -15,7 +15,7 @@ const Punishment:React.FC<ImageProps> = ({id}) =>{
 
     return (
         <>
-            <img id="punishment" src={urlForImage} alt='Random punishment image'/>;
+            <img id = {`${id}`} src={urlForImage} alt='Random punishment image'/>;
         </>
     )
 }
