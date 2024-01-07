@@ -49,7 +49,7 @@ const ConfessionForm:React.FC = () =>{
         if(confessionValue.match("  ")){
             setIsConfessionValid(false);
             setIsMessage(true);
-            setMessage("Length of subject has to be between 3-50 characters.");
+            setMessage("Two spaces are not allowed in the confession text.");
 
         } else if(confessionValue.length <=5){
             setIsConfessionValid(false);
@@ -62,6 +62,16 @@ const ConfessionForm:React.FC = () =>{
         }
 
     } 
+    const validateSelect = (value:string) =>{
+        if(value === 'select' || value === ''){
+            setIsSelectValid(false);
+            setMessage("Please select a type.");
+            setIsMessage(true);
+        }else{
+            setIsSelectValid(true);
+            setIsMessage(false);
+        }
+    }
     //handle change
     const handleSubject = (e:React.ChangeEvent<HTMLInputElement>) =>{
         setSubjectValue(e.target.value);
@@ -69,8 +79,7 @@ const ConfessionForm:React.FC = () =>{
     }
     const handleSelect = (e:React.ChangeEvent<HTMLSelectElement>) =>{
         setSelectValue(e.target.value);
-        setIsSelectValid(selectValue !== '');
-        
+        validateSelect(e.target.value);
     }
     const handleConfession = (e:React.ChangeEvent<HTMLTextAreaElement>) =>{
         setConfessionValue(e.target.value);
@@ -80,6 +89,7 @@ const ConfessionForm:React.FC = () =>{
     //handle form submission
     const handleSubmit = async () =>{
         //post data to server
+        console.log('here in mock');
         const postData = {
             "subject": subjectValue,
             "reason": selectValue,
@@ -106,8 +116,6 @@ const ConfessionForm:React.FC = () =>{
             //show Thank you message
             setIsMessage(true);
             setMessage('Thank you for talking to us!');
-            console.log('here');
-            <MessageContainer message={message}/>
         }else{
             setIsMessage(true);
             setMessage("Sorry there was an error submitting the form.Please try again!");
@@ -127,4 +135,6 @@ const ConfessionForm:React.FC = () =>{
         </div>
     )
 }
+
 export default ConfessionForm;
+
