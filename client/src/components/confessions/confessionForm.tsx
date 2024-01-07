@@ -72,6 +72,15 @@ const ConfessionForm:React.FC = () =>{
             setIsMessage(false);
         }
     }
+    const resetValues = () =>{
+        setSubjectValue('');
+        setIsSubjectValid(false);
+        setSelectValue('');
+        setIsSelectValid(false);
+        setConfessionValue('');
+        setIsConfessionValid(false);
+
+    }
     //handle change
     const handleSubject = (e:React.ChangeEvent<HTMLInputElement>) =>{
         setSubjectValue(e.target.value);
@@ -89,7 +98,6 @@ const ConfessionForm:React.FC = () =>{
     //handle form submission
     const handleSubmit = async () =>{
         //post data to server
-        console.log('here in mock');
         const postData = {
             "subject": subjectValue,
             "reason": selectValue,
@@ -116,10 +124,11 @@ const ConfessionForm:React.FC = () =>{
             //show Thank you message
             setIsMessage(true);
             setMessage('Thank you for talking to us!');
+            resetValues();
+            
         }else{
             setIsMessage(true);
             setMessage("Sorry there was an error submitting the form.Please try again!");
-            
         }
     }
     
