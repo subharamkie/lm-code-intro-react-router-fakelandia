@@ -71,7 +71,7 @@ it('Check if filtered Misdemeanour list shows expected value for number of misde
     expect(await screen.findByText('2248')).toBeInTheDocument();
 });
 
-it('filter called to show Loading if misdemeanours is empty',async()=>{
+it('filter called to show error if misdemeanours is empty',async()=>{
     mockServer.use(http.get('http://localhost:8080/api/misdemeanours/0',()=>
             new HttpResponse(JSON.stringify({"misdemeanours":[]}))
         ));
@@ -80,7 +80,7 @@ it('filter called to show Loading if misdemeanours is empty',async()=>{
     fireEvent.change(dropdown, { target: { value: 'lift' } });
   
     //expect(await screen.queryByText('2114')).not.toBeInTheDocument();
-    expect(await screen.findByText('NUMBER OF MISDEMEANOURS: 0')).toBeInTheDocument();
+    expect(await screen.findByText(/failed/i)).toBeInTheDocument();
 });
 
 it('show error if fetch returns error',async()=>{

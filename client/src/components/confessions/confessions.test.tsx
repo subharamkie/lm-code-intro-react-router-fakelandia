@@ -6,7 +6,7 @@ import {setupServer} from 'msw/node';
 import {it,expect,afterAll,afterEach,beforeAll,vi} from 'vitest'; 
 import {fireEvent, render,screen,waitFor} from '@testing-library/react';
 import ConfessionForm from './confessionForm';
-import { BrowserRouter } from 'react-router-dom';
+import {  MemoryRouter } from 'react-router-dom';
 import { ConfessionInput } from './confessionInput';
 import { ConfessionSelect } from './confessionSelect';
 import { ConfessButton } from './confessButton';
@@ -59,18 +59,18 @@ it('Check if button click calls the handleSubmit function', () => {
 
 it('Confession form rendered',async ()=>{
     render(
-    <BrowserRouter>
+    <MemoryRouter>
     <ConfessionForm/>
-    </BrowserRouter>);
+    </MemoryRouter>);
     const testDom = await screen.getByText(/reason for contact/i);
     expect(testDom).toBeDefined();
 });
 
 
 it('Subject input validation error for wrong input',async()=>{
-    render(<BrowserRouter>
+    render(<MemoryRouter>
         <ConfessionForm/>
-        </BrowserRouter>);
+        </MemoryRouter>);
     const element = screen.getByPlaceholderText('Enter characters between 3 and 50 chars in length');
     fireEvent.change(element,{target:{value:'abc$%'}});
     await waitFor(() => {
@@ -79,9 +79,9 @@ it('Subject input validation error for wrong input',async()=>{
 });
 
 it('Reason dropwdown validation error for not choosing an option',async()=>{
-    render(<BrowserRouter>
+    render(<MemoryRouter>
         <ConfessionForm/>
-        </BrowserRouter>);
+        </MemoryRouter>);
     const element = screen.getByRole('combobox');
     fireEvent.change(element,{target:{value:'select'}});    
     await waitFor(() => {
@@ -102,9 +102,9 @@ it('No validation error if reason dropwdown value is anything other than select'
 */
 
 it('Confession input validation error for wrong input',async()=>{
-    render(<BrowserRouter>
+    render(<MemoryRouter>
         <ConfessionForm/>
-        </BrowserRouter>);
+        </MemoryRouter>);
     const element = screen.getByPlaceholderText('Enter text about your confession.Cannot be empty.');
     fireEvent.change(element,{target:{value:' er'}});
     await waitFor(() => {
