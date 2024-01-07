@@ -22,11 +22,50 @@ const ConfessionForm:React.FC = () =>{
     const contextObj = useContext(JusticeContext);
     const navigate = useNavigate();
     
+    const validateSubject = () =>{
+        if(subjectValue.match(/[^a-zA-Z0-9 ]+/)){
+            setIsSubjectValid(false);
+            setIsMessage(true);
+            setMessage("Special characters are not allowed in subject.");
+        }
+        else if(subjectValue.match("  ")){
+            setIsSubjectValid(false);
+            setIsMessage(true);
+            setMessage("Two spaces are not allowed in subject.");
+        }
+        else if(!(subjectValue.length >= 3 && subjectValue.length <= 50)){
+            setIsSubjectValid(false);
+            setIsMessage(true);
+            setMessage("Length of subject has to be between 3-50 characters.");
+        }else{
+            setIsSubjectValid(true);
+            setIsMessage(false);
+        }
+        
+        
+    }
+    const validateConfessionText = () =>{
+        
+        if(confessionValue.match("  ")){
+            setIsConfessionValid(false);
+            setIsMessage(true);
+            setMessage("Length of subject has to be between 3-50 characters.");
+
+        } else if(confessionValue.length <=5){
+            setIsConfessionValid(false);
+            setIsMessage(true);
+            setMessage("Length of confession text has to be more than 5 characters.");
+
+        } else {
+            setIsConfessionValid(true);
+            setIsMessage(false);
+        }
+
+    } 
     //handle change
     const handleSubject = (e:React.ChangeEvent<HTMLInputElement>) =>{
         setSubjectValue(e.target.value);
-        setIsSubjectValid(!subjectValue.match(/[^a-zA-Z0-9 ]+/) && !subjectValue.match("  ") && subjectValue.length >= 3 && subjectValue.length <= 50);
-        
+        validateSubject();
     }
     const handleSelect = (e:React.ChangeEvent<HTMLSelectElement>) =>{
         setSelectValue(e.target.value);
@@ -35,7 +74,7 @@ const ConfessionForm:React.FC = () =>{
     }
     const handleConfession = (e:React.ChangeEvent<HTMLTextAreaElement>) =>{
         setConfessionValue(e.target.value);
-        setIsConfessionValid(!confessionValue.match("  ") && confessionValue.length >=5);    
+        validateConfessionText();    
     }
     
     //handle form submission
@@ -52,7 +91,6 @@ const ConfessionForm:React.FC = () =>{
             headers:{'Content-Type':'application/json'}
         });
         const result = await response.json();
-        console.log('on mock test');
         if(result.success && !result.justTalked){
            //add to misdemeanours list in context
            //create misD object
